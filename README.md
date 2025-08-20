@@ -1,38 +1,36 @@
-# OptiSentry – Superfinal
+# OptiSentry – Monorepo (Full)
 
-## Run (local)
-```bash
-python -m venv .venv && . .venv/bin/activate
-pip install -e .[dev]
-make dev-up
-# open http://localhost:8000/api-docs and /ui
-```
+## Struktur
+- `services/api` — FastAPI Backend (Stripe, Entitlements, Usage, Reports, Security, CI)
+- `apps/site` — Marketing Website (Next.js)
+- `apps/app` — Dashboard (Next.js)
+- `apps/docs` — Docs Portal
+- `infra` — Terraform/Helm Skeleton
+- `policies` — Rechtstexte (MD)
+- `cmp` — Consent Manager Config
+- `design` — Design Tokens & Assets
+- `.github/workflows` — CI Templates
 
-## Migrate
-```bash
-make migrate
-```
-
-## ENV
-See `.env.example` and `GO-LIVE.md`.
-
-
-## Windows Quick Start (PowerShell)
+## Quick Start (Windows)
+### API
 ```powershell
-# 1) Start per PowerShell ohne make/pip editable
+cd services/api
 ./run.ps1
-
-# 2) In neuem Terminal (Migrationen)
+# neues Terminal
 ./migrate.ps1
-
-# 3) Aufrufen
 # http://localhost:8000/api-docs
-# http://localhost:8000/ui
 ```
 
-## Docker Desktop (optional)
+### Site/App (Next.js)
+```bash
+cd apps/site && npm install && npm run dev
+cd apps/app  && npm install && npm run dev
+```
+Vor Produktion `.env.example` Dateien pflegen.
+
+## Docker (nur API)
 ```powershell
+cd services/api
 docker-compose up --build
-# in anderem Terminal:
 ./migrate.ps1
 ```
